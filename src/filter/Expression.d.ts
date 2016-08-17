@@ -7,8 +7,7 @@ declare module Expressions
     export interface IExecutableExpression
     {
         oper() : JSON;
-        exec() : (...params: IExecutableExpression[]) => IExecutableExpression;
-        result() : any;
+        compile() : (item: any) => any;
     }
 
     export interface Expression extends IExecutableExpression
