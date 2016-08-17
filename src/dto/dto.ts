@@ -172,6 +172,16 @@ module DTO
     {
         id: string;
 
+        gameId?: number;
+
+        leagueId?: number;
+
+        /* region link */
+        regionId?: number;
+
+        /* date/time of game start */
+        startDate: Date;
+        
         name?: string;
 
         title?: string;
