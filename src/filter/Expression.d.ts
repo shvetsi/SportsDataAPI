@@ -6,7 +6,7 @@ declare module Expressions
 
     export interface IExecutableExpression
     {
-        oper() : any;
+        oper() : JSON;
         exec() : (...params: IExecutableExpression[]) => IExecutableExpression;
         result() : any;
     }
