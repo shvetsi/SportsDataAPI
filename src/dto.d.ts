@@ -33,7 +33,7 @@ export declare module dto {
     export interface GameState {
         status: LiveStatus
         score: GameScore
-        suspended: boolean
+        isSuspended: boolean
         /** zero point for seconds in game, datetime */
         secondsUpdated: Date
         /** seconds left after zero point */
