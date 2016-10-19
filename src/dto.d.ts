@@ -105,7 +105,7 @@ export declare module dto {
         isLive: boolean
 
         /** will this game go live when started, for pre-live only and eventType = Game */
-        goingLive: boolean
+        isGoingLive: boolean
 
         liveGameState?: GameState
 
