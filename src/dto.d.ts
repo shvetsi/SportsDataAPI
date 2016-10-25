@@ -82,6 +82,13 @@ export declare module dto {
         isLeagueHot: boolean
         /** Is league marked with hot flag for current region. */
         isLeagueHotInRegion: boolean
+        /** Name of home team for game event **/
+        HomeTeamName?: string
+        /** Name of away team for game event **/
+        AwayTeamName?: string
+        /** Name of event, for league events **/
+        EventName?: string
+        
         /**
          *  Represent types of markets which will be attached to the current SportEvent.
          *  You can't use this property in filter query together with marketGroup property.    
