@@ -1,19 +1,71 @@
-export declare module dto {
+// Type definitions for [~THE LIBRARY NAME~] [~OPTIONAL VERSION NUMBER~]
+// Project: [~THE PROJECT NAME~]
+// Definitions by: [~YOUR NAME~] <[~A URL FOR YOU~]>
+
+export module dto {
 
     /**
      * Event type  */
     export enum EventType {
-        Game,
-        Outright
+        Game = 0,
+        Outright = 1
     }
 
     export enum LiveStatus {
         NotStarted = 0,
         FirstHalf = 1,
+        PausedFirstHalf = -1,        
         SecondHalf = 2,
-        HalfTime = 3,
+        PausedSecondHalf = -2,
+        EndFirstHalf = 3,
+        PauseBetweenHalfs = -3,
         Finished = 6,
-        Overtime = 9
+        Overtime = 9,
+        FirstPart = 11,
+        SecondPart = 12,
+        ThirdPart = 13,
+        FourthPart = 14,
+        FifthPart = 15,
+        SixthPart = 16,
+        SeventhPart = 17,
+        EighthPart = 18,
+        NinthPart = 19,
+        TenthPart = 20,
+        EleventhPart = 21,
+        TwelfthPart = 22,
+        ThirteenthPart = 23,
+        FourteenthPart = 24,
+        FifteenthPart = 25,
+        SixteenthPart = 26,
+        SeventeenthPart = 27,
+        EighteenthPart = 28,
+        NineteenthPart = 29,
+        TwentiethPart = 30,
+        FirstBreak = 31,
+        SecondBreak = 32,
+        ThirdBreak = 33,
+        FourthBreak = 34,
+        FifthBreak = 35,
+        SixthBreak = 36,
+        SeventhBreak = 37,
+        EighthBreak = 38,
+        NinthBreak = 39,
+        TenthBreak = 40,
+        EleventhBreak = 41,
+        TwelfthBreak = 42,
+        ThirteenthBreak = 43,
+        FourteenthBreak = 44,
+        FifteenthBreak = 45,
+        SixteenthBreak = 46,
+        SeventeenthBreak = 47,
+        EighteenthBreak = 48,
+        NineteenthBreak = 49,
+        EndGame = 50,
+        Started = 51,
+        PausedFirstPart = -11,
+        PausedSecondPart = -12,
+        PausedThirdPart = -13,
+        PausedFourthPart = -14
     }
 
     export interface GameScore {
@@ -33,7 +85,7 @@ export declare module dto {
     export interface GameState {
         status: LiveStatus
         score: GameScore
-        isSuspended: boolean
+        suspended: boolean
         /** zero point for seconds in game, datetime */
         secondsUpdated: Date
         /** seconds left after zero point */
@@ -56,7 +108,7 @@ export declare module dto {
     /**
      * Queryable entity
      */
-    export interface Event {
+    export interface SportEvent {
         id: number
         /** Type of SportEvent. */
         type: EventType
@@ -83,12 +135,11 @@ export declare module dto {
         /** Is league marked with hot flag for current region. */
         isLeagueHotInRegion: boolean
         /** Name of home team for game event **/
-        HomeTeamName?: string
+        homeTeamName?: string
         /** Name of away team for game event **/
-        AwayTeamName?: string
+        awayTeamName?: string
         /** Name of event, for league events **/
-        EventName?: string
-        
+        eventName?: string
         /**
          *  Represent types of markets which will be attached to the current SportEvent.
          *  You can't use this property in filter query together with marketGroup property.    
@@ -112,14 +163,14 @@ export declare module dto {
         isLive: boolean
 
         /** will this game go live when started, for pre-live only and eventType = Game */
-        isGoingLive: boolean
+        goingLive: boolean
 
         liveGameState?: GameState
 
         liveGameTime?: GameTime
 
         tags: string[]
-    }
+    }    
 
     /**
      * Market
