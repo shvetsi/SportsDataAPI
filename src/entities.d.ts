@@ -1,20 +1,15 @@
-// Type definitions for [~THE LIBRARY NAME~] [~OPTIONAL VERSION NUMBER~]
-// Project: [~THE PROJECT NAME~]
-// Definitions by: [~YOUR NAME~] <[~A URL FOR YOU~]>
-
-export module dto {
-
+export declare namespace entities {
     /**
-     * Event type  */
-    export enum EventType {
+     * Event type
+     */
+    enum EventType {
         Game = 0,
-        Outright = 1
+        Outright = 1,
     }
-
-    export enum LiveStatus {
+    enum LiveStatus {
         NotStarted = 0,
         FirstHalf = 1,
-        PausedFirstHalf = -1,        
+        PausedFirstHalf = -1,
         SecondHalf = 2,
         PausedSecondHalf = -2,
         EndFirstHalf = 3,
@@ -65,215 +60,200 @@ export module dto {
         PausedFirstPart = -11,
         PausedSecondPart = -12,
         PausedThirdPart = -13,
-        PausedFourthPart = -14
+        PausedFourthPart = -14,
     }
-
-    export interface GameScore {
+    interface GameScore {
         /** Home team/player top level score */
-        homeScore: number
-
+        homeScore: number;
         /** Home team player score in sets, innings, etc where it's possible */
-        homeScores?: number[]
-
+        homeScores?: number[];
         /** Away team/player top level score */
-        awayScore: number
-
+        awayScore: number;
         /** Away team player score in sets, innings, etc where it's possible */
-        awayScores?: number[]
+        awayScores?: number[];
     }
-
-    export interface GameState {
-        status: LiveStatus
-        score: GameScore
-        suspended: boolean
+    interface GameState {
+        status: LiveStatus;
+        score: GameScore;
+        suspended: boolean;
         /** zero point for seconds in game, datetime */
-        secondsUpdated: Date
+        secondsUpdated: Date;
         /** seconds left after zero point */
-        seconds: number
+        seconds: number;
         /** calculated string representation of in game time, string */
-        timeInGame: string
+        timeInGame: string;
     }
-
-    export interface GameTime {
+    interface GameTime {
         /** zero point for seconds in game, datetime */
-        secondsUpdated: Date
-
+        secondsUpdated: Date;
         /** seconds left after zero point */
-        seconds: number
-
+        seconds: number;
         /** calculated string representation of in game time, string */
-        timeInGame: string
+        timeInGame: string;
     }
-
     /**
      * Queryable entity
      */
-    export interface SportEvent {
-        id: number
+    interface SportEvent {
+        id: number;
         /** Type of SportEvent. */
-        type: EventType
+        type: EventType;
         /** Sport ID. */
-        sportId: number
+        sportId: number;
         /** Sorting order of Sport. */
-        sportOrder: number
+        sportOrder: number;
         /** Sport name (translated). */
-        sportName: string
+        sportName: string;
         /** Region ID. */
-        regionId: number
+        regionId: number;
         /** ISO country code or (for regions in country) region code. */
-        regionCode: string
+        regionCode: string;
         /** Region name (translated). */
-        regionName: string
+        regionName: string;
         /** League ID. */
-        leagueId: number
+        leagueId: number;
         /** League name (translated). */
-        leagueName: string        
+        leagueName: string;
         /** Sorting order of League. */
-        leagueOrder: number
+        leagueOrder: number;
         /** Is league marked with hot flag. */
-        isLeagueHot: boolean
+        isLeagueHot: boolean;
         /** Is league marked with hot flag for current region. */
-        isLeagueHotInRegion: boolean
-        /** Name of home team for game event **/
-        homeTeamName?: string
-        /** Name of away team for game event **/
-        awayTeamName?: string
-        /** Name of event, for league events **/
-        eventName?: string
+        isLeagueHotInRegion: boolean;
+        /** Name of home team for game event */
+        homeTeamName?: string;
+        /** Name of away team for game event */
+        awayTeamName?: string;
+        /** Name of event, for league events */
+        eventName?: string;
         /**
          *  Represent types of markets which will be attached to the current SportEvent.
-         *  You can't use this property in filter query together with marketGroup property.    
+         *  You can't use this property in filter query together with marketGroup property.
          */
-        marketTypes: string[]
+        marketTypes: string[];
         /**  can't query this together with marketTypes */
-        marketGroup: string
-        // not queriable
-        markets: Market[]
-        // only queriable but not returnable
+        marketGroup: string;
+        markets: Market[];
         /** Number of bets placed for entity */
-        totalBets?: number
-        // only queriable but not returnable
+        totalBets?: number;
         /** Total deposit of all bets placed for entity */
-        totalDeposit?: number
-        
+        totalDeposit?: number;
         /** date/time of game start */
-        startEventDate: Date
-
+        startEventDate: Date;
         /** is it live game */
-        isLive: boolean
-
+        isLive: boolean;
         /** will this game go live when started, for pre-live only and eventType = Game */
-        goingLive: boolean
-
-        liveGameState?: GameState
-
-        liveGameTime?: GameTime
-
-        tags: string[]
-    }    
-
+        goingLive: boolean;
+        liveGameState?: GameState;
+        liveGameTime?: GameTime;
+        tags: string[];
+        entityType: EntityType;
+    }
     /**
      * Market
      */
-    export interface Market {
-        id: string
-
-        type: MarketType
-
-        gameId: number
-
-        leagueId: number
-        
+    interface Market {
+        id: number;
+        type: MarketType;
+        gameId: number;
+        leagueId: number;
         /** date/time of game start */
-        startDate: Date
-
-        name?: string
-
-        title?: string
-
-        teamMapping?: number
-
-        // only queriable but not returnable
+        startDate: Date;
+        name?: string;
+        title?: string;
+        teamMapping?: number;
         /** Number of bets placed for entity */
-        totalBets: number
-
-        // only queriable but not returnable
+        totalBets: number;
         /** Total deposit of all bets placed for entity */
-        totalDeposit: number
-
-        selections: Selection[]
-
+        totalDeposit: number;
+        selections: Selection[];
         /** template number used for draw market */
-        splitType: number
+        splitType: number;
+        eventId: number;
+        entityType: EntityType;
     }
-
-    export interface MarketType {
-        id: string
-        name: string
-        drawCapable: boolean
-        swapTeams: boolean
+    interface MarketType {
+        id: string;
+        name: string;
+        drawCapable: boolean;
+        swapTeams: boolean;
     }
-    
-    export interface Region {
+    interface Region {
         /** region ID */
-        id: number
-
+        id: number;
         /** ISO country code or (for regions in country) region code */
-        code: string
-
+        code: string;
         /** translated region name */
-        name: string
+        name: string;
     }
-
-    export interface Sport {
+    interface Sport {
         /** sport ID */
-        id: number
-
+        id: number;
         /** sorting order */
-        order: number
-
+        order: number;
         /** translated sport name */
-        name: string
-
+        name: string;
         /** number of live (in-game) active games */
-        liveCount: number
-
+        liveCount: number;
         /** total number of games, both live and pre-live */
-        gamesCount: number
-
+        gamesCount: number;
         /** number of active outrights league bound markets */
-        outrightsCount: number
+        outrightsCount: number;
+        entityType: EntityType;
     }
-
-    export interface League {
+    interface League {
         /** league ID */
-        id: number
-
+        id: number;
         /** translated league name */
-        name: string
-
+        name: string;
         /** link to sport */
-        sportId: number
-
+        sportId: number;
         /** link to region */
-        regionId: number
-
+        regionId: number;
         /** Sorting order */
-        order: number
-
+        order: number;
         /** is league marked with hot flag */
-        isHot: boolean
-
+        isHot: boolean;
         /** is league marked with hot flag for it's region */
-        isLeagueHotInRegion?: boolean
-
+        isLeagueHotInRegion?: boolean;
         /** number of live (in-game) active games */
-        liveCount: number
-
+        liveCount: number;
         /** total number of games, both live and pre-live */
-        gamesCount: number
-
+        gamesCount: number;
         /** number of active outrights league bound markets */
-        outrightsCount: number
-    }    
+        outrightsCount: number;
+        entityType: EntityType;
+    }
+    enum SelectionSide {
+        Home = 1,
+        Draw = 2,
+        Away = 3,
+    }
+    enum SelectionType {
+        ML = 1,
+        HC = 2,
+        OU = 3,
+        Column1 = 13,
+        Column2 = 14,
+        Column3 = 15,
+    }
+    interface Selection {
+        id: string;
+        side: SelectionSide;
+        type: SelectionType;
+        group: number;
+        name: string;
+        title?: string;
+        odds: string;
+        euOdds: number;
+        points?: number;
+        qaparam1: number;
+        qaparam2: number;
+    }
+    enum EntityType {
+        Event = 0,
+        Market = 1,
+        League = 2,
+        Sport = 3,
+    }
 }
