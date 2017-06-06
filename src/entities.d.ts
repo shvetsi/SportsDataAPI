@@ -1,12 +1,12 @@
-export declare namespace entities {
+export namespace entities {
     /**
      * Event type
      */
-    enum EventType {
+    export enum EventType {
         Game = 0,
-        Outright = 1,
+        Outright = 1
     }
-    enum LiveStatus {
+    export enum LiveStatus {
         NotStarted = 0,
         FirstHalf = 1,
         PausedFirstHalf = -1,
@@ -60,30 +60,26 @@ export declare namespace entities {
         PausedFirstPart = -11,
         PausedSecondPart = -12,
         PausedThirdPart = -13,
-        PausedFourthPart = -14,
+        PausedFourthPart = -14
     }
-    interface GameScore {
+    export interface LiveGameScore {
         /** Home team/player top level score */
-        homeScore: number;
-        /** Home team player score in sets, innings, etc where it's possible */
-        homeScores?: number[];
+        homeScore: number
         /** Away team/player top level score */
-        awayScore: number;
-        /** Away team player score in sets, innings, etc where it's possible */
-        awayScores?: number[];
+        awayScore: number
+
+        additionalScores: Dictionary<string>
     }
-    interface GameState {
-        status: LiveStatus;
-        score: GameScore;
-        suspended: boolean;
+  export interface GameState {
+        status: LiveStatus
+        score: LiveGameScore
+        isSuspended: boolean
         /** zero point for seconds in game, datetime */
-        secondsUpdated: Date;
+        secondsUpdated: Date
         /** seconds left after zero point */
-        seconds: number;
-        /** calculated string representation of in game time, string */
-        timeInGame: string;
+        seconds: number
     }
-    interface GameTime {
+    export interface GameTime {
         /** zero point for seconds in game, datetime */
         secondsUpdated: Date;
         /** seconds left after zero point */
@@ -94,8 +90,8 @@ export declare namespace entities {
     /**
      * Queryable entity
      */
-    interface SportEvent {
-        id: number;
+    export interface SportEvent {
+        id: string;
         /** Type of SportEvent. */
         type: EventType;
         /** Sport ID. */
@@ -126,69 +122,104 @@ export declare namespace entities {
         awayTeamName?: string;
         /** Name of event, for league events */
         eventName?: string;
-        /**
-         *  Represent types of markets which will be attached to the current SportEvent.
-         *  You can't use this property in filter query together with marketGroup property.
-         */
-        marketTypes: string[];
-        /**  can't query this together with marketTypes */
-        marketGroup: string;
+
         markets: Market[];
-        /** Number of bets placed for entity */
-        totalBets?: number;
-        /** Total deposit of all bets placed for entity */
-        totalDeposit?: number;
+
         /** date/time of game start */
         startEventDate: Date;
         /** is it live game */
         isLive: boolean;
         /** will this game go live when started, for pre-live only and eventType = Game */
-        goingLive: boolean;
+        isGoingLive: boolean;
         liveGameState?: GameState;
+        
         liveGameTime?: GameTime;
+
         tags: string[];
+
         entityType: EntityType;
+
+        eventInfoExtensions: Dictionary<string>
     }
     /**
      * Market
      */
-    interface Market {
-        id: number;
-        type: MarketType;
-        gameId: number;
+    export interface Market {
+        id: string;
+        marketType: MarketType;
+        sportId: number;
         leagueId: number;
         /** date/time of game start */
         startDate: Date;
-        name?: string;
         title?: string;
         teamMapping?: number;
-        /** Number of bets placed for entity */
-        totalBets: number;
-        /** Total deposit of all bets placed for entity */
-        totalDeposit: number;
+
         selections: Selection[];
         /** template number used for draw market */
         splitType: number;
-        eventId: number;
+        eventId: string;
         entityType: EntityType;
+
+        isLive: boolean
+
+        liveData: LiveData
+
+        groupId: number
+
+        groupName: string
+
+        liveGroupId: number
+
+        preLiveGroupId: number
+
+        additionalData: Dictionary<string>
+
+        tags: string[]
     }
-    interface MarketType {
+
+    export interface LiveData {
+        secondsToShow: number
+
+        secondsToShowUpdateTime: Date
+
+        scoreTeam1: number
+
+        scoreTeam2: number
+
+        isDanger: boolean
+
+        aServePnppA: number
+
+        bServePnppB: number
+    }
+    export interface MarketType {
         id: string;
         name: string;
         drawCapable: boolean;
         swapTeams: boolean;
+        lineTypeName: string 
     }
-    interface Region {
+    export interface Region {
         /** region ID */
-        id: number;
+        id: string;
         /** ISO country code or (for regions in country) region code */
         code: string;
         /** translated region name */
         name: string;
+        /** number of live (in-game) active games */
+        liveCount: number
+
+        /** total number of games, both live and pre-live */
+        gamesCount: number
+
+        /** number of active outrights league bound markets */
+        outrightsCount: number;
+        
+        entityType: EntityType;
     }
-    interface Sport {
+    export interface Sport {
         /** sport ID */
-        id: number;
+        id: string;
         /** sorting order */
         order: number;
         /** translated sport name */
@@ -201,9 +232,9 @@ export declare namespace entities {
         outrightsCount: number;
         entityType: EntityType;
     }
-    interface League {
+    export interface League {
         /** league ID */
-        id: number;
+        id: string;
         /** translated league name */
         name: string;
         /** link to sport */
@@ -224,36 +255,40 @@ export declare namespace entities {
         outrightsCount: number;
         entityType: EntityType;
     }
-    enum SelectionSide {
+    export enum SelectionSide {
         Home = 1,
         Draw = 2,
-        Away = 3,
+        Away = 3
     }
-    enum SelectionType {
+    export enum SelectionType {
         ML = 1,
         HC = 2,
         OU = 3,
         Column1 = 13,
         Column2 = 14,
-        Column3 = 15,
+        Column3 = 15
     }
-    interface Selection {
+    export interface Selection {
         id: string;
-        side: SelectionSide;
-        type: SelectionType;
+        side?: SelectionSide;
+        type?: SelectionType;
         group: number;
         name: string;
         title?: string;
-        odds: string;
+        odds: Dictionary<string>;
         euOdds: number;
-        points?: number;
-        qaparam1: number;
-        qaparam2: number;
+        points: number;
+        qaparam1?: number;
+        qaparam2?: number;
     }
-    enum EntityType {
+    export enum EntityType {
         Event = 0,
         Market = 1,
         League = 2,
-        Sport = 3,
+        Sport = 3
     }
+}
+
+export interface Dictionary<T> {
+    [index:string]: T;
 }
