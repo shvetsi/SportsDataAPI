@@ -1,11 +1,4 @@
 export namespace entities {
-    /**
-     * Event type
-     */
-    export enum EventType {
-        Game = 0,
-        Outright = 1
-    }
     export enum LiveStatus {
         NotStarted = 0,
         FirstHalf = 1,
@@ -93,7 +86,7 @@ export namespace entities {
     export interface SportEvent {
         id: string
         /** Type of SportEvent. */
-        type: EventType
+        type: string
         /** Sport ID. */
         sportId: number
         /** Sorting order of Sport. */
@@ -197,7 +190,6 @@ export namespace entities {
         name: string
         drawCapable: boolean
         swapTeams: boolean
-        lineTypeName: string 
     }
     export interface Region {
         /** region ID */
