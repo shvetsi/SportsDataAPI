@@ -1,4 +1,5 @@
 export namespace entities {
+
     export enum LiveStatus {
         NotStarted = 0,
         FirstHalf = 1,
@@ -55,6 +56,7 @@ export namespace entities {
         PausedThirdPart = -13,
         PausedFourthPart = -14
     }
+    
     export interface LiveGameScore {
         /** Home team/player top level score */
         homeScore: number
@@ -63,7 +65,8 @@ export namespace entities {
 
         additionalScores: Dictionary<string>
     }
-  export interface GameState {
+    
+    export interface GameState {
         status: LiveStatus
         score: LiveGameScore
         isSuspended: boolean
@@ -72,6 +75,7 @@ export namespace entities {
         /** seconds left after zero point */
         seconds: number
     }
+    
     export interface GameTime {
         /** zero point for seconds in game, datetime */
         secondsUpdated: Date
@@ -80,10 +84,8 @@ export namespace entities {
         /** calculated string representation of in game time, string */
         timeInGame: string
     }
-    /**
-     * Queryable entity
-     */
-    export interface SportEvent {
+    
+    export interface Event {
         id: string
         /** Type of SportEvent. */
         type: string
@@ -134,9 +136,7 @@ export namespace entities {
 
         eventInfoExtensions: Dictionary<string>
     }
-    /**
-     * Market
-     */
+    
     export interface Market {
         id: string
         marketType: MarketType
@@ -185,12 +185,14 @@ export namespace entities {
 
         bServePnppB: number
     }
+    
     export interface MarketType {
         id: string
         name: string
         drawCapable: boolean
         swapTeams: boolean
     }
+    
     export interface Region {
         /** region ID */
         id: string
@@ -209,6 +211,7 @@ export namespace entities {
         
         entityType: EntityType
     }
+    
     export interface Sport {
         /** sport ID */
         id: string
@@ -224,6 +227,7 @@ export namespace entities {
         outrightsCount: number
         entityType: EntityType
     }
+    
     export interface League {
         /** league ID */
         id: string
@@ -247,11 +251,13 @@ export namespace entities {
         outrightsCount: number
         entityType: EntityType
     }
+    
     export enum SelectionSide {
         Home = 1,
         Draw = 2,
         Away = 3
     }
+    
     export enum SelectionType {
         ML = 1,
         HC = 2,
@@ -260,6 +266,7 @@ export namespace entities {
         Column2 = 14,
         Column3 = 15
     }
+    
     export interface Selection {
         id: string
         side?: SelectionSide
@@ -273,11 +280,13 @@ export namespace entities {
         qaparam1?: number
         qaparam2?: number
     }
+    
     export enum EntityType {
         Event = 0,
         Market = 1,
         League = 2,
-        Sport = 3
+        Sport = 3,
+        Region = 4
     }
 }
 
