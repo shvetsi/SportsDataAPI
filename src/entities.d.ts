@@ -265,7 +265,7 @@ export namespace entities {
         secondsToShowUpdateTime: Date
         scoreTeam1: number
         scoreTeam2: number
-        isDanger: boolean
+        isSuspended: boolean
         aServePnppA: number
         bServePnppB: number
     }
