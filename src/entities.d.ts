@@ -1,5 +1,7 @@
 export namespace entities {
 
+    export type EventType = "Fixture" | "Outright"    
+    
     export enum LiveStatus {
         NotStarted = 0,
         FirstHalf = 1,
@@ -88,7 +90,7 @@ export namespace entities {
     export interface Event {
         id: string
         /** Type of SportEvent. */
-        type: string
+        type: EventType
         /** Sport ID. */
         sportId: number
         /** Sorting order of Sport. */
