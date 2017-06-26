@@ -1,6 +1,180 @@
 export namespace entities {
 
+    export enum EntityType {
+        Event = 0,
+        Market = 1,
+        League = 2,
+        Sport = 3,
+        Region = 4
+    }
+    
     export type EventType = "Fixture" | "Outright"    
+    
+    export interface Event {
+        id: string
+        /** Type of SportEvent. */
+        type: EventType
+        /** Type of Entity. */
+        entityType: EntityType.Event
+        /** Sport ID. */
+        sportId: number
+        /** Sorting order of Sport. */
+        sportOrder: number
+        /** Sport name (translated). */
+        sportName: string
+        /** Region ID. */
+        regionId: number
+        /** ISO country code or (for regions in country) region code. */
+        regionCode: string
+        /** Region name (translated). */
+        regionName: string
+        /** League ID. */
+        leagueId: number
+        /** League name (translated). */
+        leagueName: string
+        /** Sorting order of League. */
+        leagueOrder: number
+        /** Is league in TOP for specific region. */
+        topLeague: boolean
+        /** Is league marked with hot flag for current region. */
+        topLeagueInUserGeography: boolean
+        /** Name of home team for game event */
+        homeTeamName?: string
+        /** Name of away team for game event */
+        awayTeamName?: string
+        /** Name of event, for league events */
+        eventName?: string
+
+        markets: Market[]
+
+        /** date/time of game start */
+        startEventDate: Date
+        /** is it live game */
+        isLive: boolean
+        /** will this game go live when started, for pre-live only and eventType = Game */
+        isGoingLive: boolean
+        liveGameState?: LiveGameState        
+        liveGameTime?: GameTime
+        tags: string[]
+        meta: Dictionary<string>
+    }
+    
+    export interface Market {
+        id: string
+        entityType: EntityType.Market
+        marketType: MarketType
+        eventId: string
+        sportId: number
+        leagueId: number
+        /** date/time of game start */
+        startDate: Date
+        title?: string
+        participantMapping?: number
+
+        selections: Selection[]
+        /** template number used for draw market */
+        splitType: number        
+        isLive: boolean
+        liveData: LiveData
+        groupId: number
+        groupName: string
+        liveGroupId: number
+        preLiveGroupId: number        
+        tags: string[]
+        meta: Dictionary<string>
+    }
+    
+    export interface MarketType {
+        id: string
+        name: string
+        drawCapable: boolean
+        swapTeams: boolean
+    }
+    
+    export interface Sport {
+        /** sport ID */
+        id: string
+        entityType: EntityType.Sport
+        /** sorting order */
+        order: number
+        /** translated sport name */
+        name: string
+        /** number of live (in-game) active fixtures */
+        liveFixturesCount: number
+        /** total number of fixtures, both live and pre-live */
+        fixturesCount: number
+        /** number of active outrights league bound markets */
+        outrightsCount: number        
+    }
+    
+    export interface Region {
+        /** region ID */
+        id: string
+        entityType: EntityType.Region
+        /** ISO country code or (for regions in country) region code */
+        code: string
+        /** translated region name */
+        name: string
+        /** number of live (in-game) active fixtures */
+        liveFixturesCount: number
+        /** total number of fixtures, both live and pre-live */
+        fixturesCount: number
+        /** number of active outrights league bound markets */
+        outrightsCount: number                
+    }
+    
+    export interface League {
+        /** league ID */
+        id: string
+        entityType: EntityType.League
+        /** translated league name */
+        name: string
+        /** link to sport */
+        sportId: number
+        /** link to region */
+        regionId: number
+        /** Sorting order */
+        order: number
+        /** Is league in TOP for specific region. */
+        topLeague: boolean
+        /** Is league marked with hot flag for current region. */
+        topLeagueInUserGeography: boolean
+        /** number of live (in-game) active fixtures */
+        liveFixturesCount: number
+        /** total number of fixtures, both live and pre-live */
+        fixturesCount: number
+        /** number of active outrights league bound markets */
+        outrightsCount: number        
+    }
+    
+    export interface Selection {
+        id: string
+        side?: SelectionSide
+        type?: SelectionType
+        group: number
+        name: string
+        title?: string
+        displayOdds: Dictionary<string>
+        trueOdds: number
+        points: number
+        qaparam1?: number
+        qaparam2?: number
+    }
+    
+    export enum SelectionSide {
+        Home = 1,
+        Draw = 2,
+        Away = 3
+    }
+    
+    export enum SelectionType {
+        ML = 1,
+        HC = 2,
+        OU = 3,
+        Column1 = 13,
+        Column2 = 14,
+        Column3 = 15
+    }
     
     export enum LiveStatus {
         NotStarted = 0,
@@ -85,81 +259,6 @@ export namespace entities {
         /** calculated string representation of in game time, string */
         timeInGame: string
     }
-    
-    export interface Event {
-        id: string
-        /** Type of SportEvent. */
-        type: EventType
-        /** Type of Entity. */
-        entityType: EntityType
-        /** Sport ID. */
-        sportId: number
-        /** Sorting order of Sport. */
-        sportOrder: number
-        /** Sport name (translated). */
-        sportName: string
-        /** Region ID. */
-        regionId: number
-        /** ISO country code or (for regions in country) region code. */
-        regionCode: string
-        /** Region name (translated). */
-        regionName: string
-        /** League ID. */
-        leagueId: number
-        /** League name (translated). */
-        leagueName: string
-        /** Sorting order of League. */
-        leagueOrder: number
-        /** Is league in TOP for specific region. */
-        topLeague: boolean
-        /** Is league marked with hot flag for current region. */
-        topLeagueInUserGeography: boolean
-        /** Name of home team for game event */
-        homeTeamName?: string
-        /** Name of away team for game event */
-        awayTeamName?: string
-        /** Name of event, for league events */
-        eventName?: string
-
-        markets: Market[]
-
-        /** date/time of game start */
-        startEventDate: Date
-        /** is it live game */
-        isLive: boolean
-        /** will this game go live when started, for pre-live only and eventType = Game */
-        isGoingLive: boolean
-        liveGameState?: LiveGameState        
-        liveGameTime?: GameTime
-        tags: string[]
-        meta: Dictionary<string>
-    }
-    
-    export interface Market {
-        id: string
-        marketType: MarketType
-        sportId: number
-        leagueId: number
-        /** date/time of game start */
-        startDate: Date
-        title?: string
-        participantMapping?: number
-
-        selections: Selection[]
-        /** template number used for draw market */
-        splitType: number
-        eventId: string
-        entityType: EntityType
-
-        isLive: boolean
-        liveData: LiveData
-        groupId: number
-        groupName: string
-        liveGroupId: number
-        preLiveGroupId: number        
-        tags: string[]
-        meta: Dictionary<string>
-    }
 
     export interface LiveData {
         secondsToShow: number
@@ -169,106 +268,6 @@ export namespace entities {
         isDanger: boolean
         aServePnppA: number
         bServePnppB: number
-    }
-    
-    export interface MarketType {
-        id: string
-        name: string
-        drawCapable: boolean
-        swapTeams: boolean
-    }
-    
-    export interface Region {
-        /** region ID */
-        id: string
-        /** ISO country code or (for regions in country) region code */
-        code: string
-        /** translated region name */
-        name: string
-        /** number of live (in-game) active fixtures */
-        liveFixturesCount: number
-        /** total number of fixtures, both live and pre-live */
-        fixturesCount: number
-        /** number of active outrights league bound markets */
-        outrightsCount: number        
-        entityType: EntityType
-    }
-    
-    export interface Sport {
-        /** sport ID */
-        id: string
-        /** sorting order */
-        order: number
-        /** translated sport name */
-        name: string
-        /** number of live (in-game) active fixtures */
-        liveFixturesCount: number
-        /** total number of fixtures, both live and pre-live */
-        fixturesCount: number
-        /** number of active outrights league bound markets */
-        outrightsCount: number
-        entityType: EntityType
-    }
-    
-    export interface League {
-        /** league ID */
-        id: string
-        /** translated league name */
-        name: string
-        /** link to sport */
-        sportId: number
-        /** link to region */
-        regionId: number
-        /** Sorting order */
-        order: number
-        /** Is league in TOP for specific region. */
-        topLeague: boolean
-        /** Is league marked with hot flag for current region. */
-        topLeagueInUserGeography: boolean
-        /** number of live (in-game) active fixtures */
-        liveFixturesCount: number
-        /** total number of fixtures, both live and pre-live */
-        fixturesCount: number
-        /** number of active outrights league bound markets */
-        outrightsCount: number
-        entityType: EntityType
-    }
-    
-    export enum SelectionSide {
-        Home = 1,
-        Draw = 2,
-        Away = 3
-    }
-    
-    export enum SelectionType {
-        ML = 1,
-        HC = 2,
-        OU = 3,
-        Column1 = 13,
-        Column2 = 14,
-        Column3 = 15
-    }
-    
-    export interface Selection {
-        id: string
-        side?: SelectionSide
-        type?: SelectionType
-        group: number
-        name: string
-        title?: string
-        displayOdds: Dictionary<string>
-        trueOdds: number
-        points: number
-        qaparam1?: number
-        qaparam2?: number
-    }
-    
-    export enum EntityType {
-        Event = 0,
-        Market = 1,
-        League = 2,
-        Sport = 3,
-        Region = 4
     }
 }
 
