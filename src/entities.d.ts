@@ -64,11 +64,10 @@ export namespace entities {
         homeScore: number
         /** Away team/player top level score */
         awayScore: number
-
         additionalScores: Dictionary<string>
     }
     
-    export interface GameState {
+    export interface LiveGameState {
         status: LiveStatus
         score: LiveGameScore
         isSuspended: boolean
@@ -91,6 +90,8 @@ export namespace entities {
         id: string
         /** Type of SportEvent. */
         type: EventType
+        /** Type of Entity. */
+        entityType: EntityType
         /** Sport ID. */
         sportId: number
         /** Sorting order of Sport. */
@@ -109,10 +110,10 @@ export namespace entities {
         leagueName: string
         /** Sorting order of League. */
         leagueOrder: number
-        /** Is league marked with hot flag. */
-        isLeagueHot: boolean
+        /** Is league in TOP for specific region. */
+        topLeague: boolean
         /** Is league marked with hot flag for current region. */
-        isLeagueHotInRegion: boolean
+        topLeagueInUserGeography: boolean
         /** Name of home team for game event */
         homeTeamName?: string
         /** Name of away team for game event */
@@ -128,15 +129,10 @@ export namespace entities {
         isLive: boolean
         /** will this game go live when started, for pre-live only and eventType = Game */
         isGoingLive: boolean
-        liveGameState?: GameState
-        
+        liveGameState?: LiveGameState        
         liveGameTime?: GameTime
-
         tags: string[]
-
-        entityType: EntityType
-
-        eventInfoExtensions: Dictionary<string>
+        meta: Dictionary<string>
     }
     
     export interface Market {
@@ -147,7 +143,7 @@ export namespace entities {
         /** date/time of game start */
         startDate: Date
         title?: string
-        teamMapping?: number
+        participantMapping?: number
 
         selections: Selection[]
         /** template number used for draw market */
@@ -156,35 +152,22 @@ export namespace entities {
         entityType: EntityType
 
         isLive: boolean
-
         liveData: LiveData
-
         groupId: number
-
         groupName: string
-
         liveGroupId: number
-
-        preLiveGroupId: number
-
-        additionalData: Dictionary<string>
-
+        preLiveGroupId: number        
         tags: string[]
+        meta: Dictionary<string>
     }
 
     export interface LiveData {
         secondsToShow: number
-
         secondsToShowUpdateTime: Date
-
         scoreTeam1: number
-
         scoreTeam2: number
-
         isDanger: boolean
-
         aServePnppA: number
-
         bServePnppB: number
     }
     
@@ -202,15 +185,12 @@ export namespace entities {
         code: string
         /** translated region name */
         name: string
-        /** number of live (in-game) active games */
-        liveCount: number
-
-        /** total number of games, both live and pre-live */
-        gamesCount: number
-
+        /** number of live (in-game) active fixtures */
+        liveFixturesCount: number
+        /** total number of fixtures, both live and pre-live */
+        fixturesCount: number
         /** number of active outrights league bound markets */
-        outrightsCount: number
-        
+        outrightsCount: number        
         entityType: EntityType
     }
     
@@ -221,10 +201,10 @@ export namespace entities {
         order: number
         /** translated sport name */
         name: string
-        /** number of live (in-game) active games */
-        liveCount: number
-        /** total number of games, both live and pre-live */
-        gamesCount: number
+        /** number of live (in-game) active fixtures */
+        liveFixturesCount: number
+        /** total number of fixtures, both live and pre-live */
+        fixturesCount: number
         /** number of active outrights league bound markets */
         outrightsCount: number
         entityType: EntityType
@@ -241,14 +221,14 @@ export namespace entities {
         regionId: number
         /** Sorting order */
         order: number
-        /** is league marked with hot flag */
-        isHot: boolean
-        /** is league marked with hot flag for it's region */
-        isLeagueHotInRegion?: boolean
-        /** number of live (in-game) active games */
-        liveCount: number
-        /** total number of games, both live and pre-live */
-        gamesCount: number
+        /** Is league in TOP for specific region. */
+        topLeague: boolean
+        /** Is league marked with hot flag for current region. */
+        topLeagueInUserGeography: boolean
+        /** number of live (in-game) active fixtures */
+        liveFixturesCount: number
+        /** total number of fixtures, both live and pre-live */
+        fixturesCount: number
         /** number of active outrights league bound markets */
         outrightsCount: number
         entityType: EntityType
@@ -276,8 +256,8 @@ export namespace entities {
         group: number
         name: string
         title?: string
-        odds: Dictionary<string>
-        euOdds: number
+        displayOdds: Dictionary<string>
+        trueOdds: number
         points: number
         qaparam1?: number
         qaparam2?: number
