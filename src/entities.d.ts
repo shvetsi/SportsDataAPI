@@ -16,6 +16,8 @@ export namespace entities {
         type: EventType
         /** Type of Entity. */
         entityType: EntityType.Event
+	/** Name of event, for league events */
+        eventName?: string
         /** Sport ID. */
         sportId: number        
         /** Sport name (translated). */
@@ -31,13 +33,9 @@ export namespace entities {
         /** League name (translated). */
         leagueName: string        
         /** Is it marked as TOP league. */
-        topLeague: boolean
-        /** desc should be added. */
-        topLeagueInUserGeography: boolean
+        topLeague: boolean        
         /** participants in the event. */
-        participants: Participant[]
-        /** Name of event, for league events */
-        eventName?: string
+        participants: Participant[]        
         markets: Market[]
         /** date/time of game start */
         startEventDate: Date
@@ -45,8 +43,7 @@ export namespace entities {
         isLive: boolean
         /** will this game go live when started, for pre-live only and eventType = Game */
         isGoingLive: boolean
-        liveGameState?: LiveGameState        
-        liveGameTime?: GameTime
+        liveGameState?: LiveGameState                
         meta: Dictionary<string>
         tags: string[]        
     }
@@ -132,9 +129,7 @@ export namespace entities {
         /** Sorting order */
         order: number
         /** Is league in TOP for specific region. */
-        topLeague: boolean
-        /** Is league marked with hot flag for current region. */
-        topLeagueInUserGeography: boolean
+        topLeague: boolean        
         /** number of live (in-game) active fixtures */
         liveFixturesCount: number
         /** total number of fixtures, both live and pre-live */
@@ -153,8 +148,6 @@ export namespace entities {
         displayOdds: Dictionary<string>
         trueOdds: number
         points: number
-        qaparam1?: number
-        qaparam2?: number
     }
     
     export enum SelectionSide {
@@ -240,25 +233,11 @@ export namespace entities {
     export interface LiveGameState {
         status: LiveStatus
         score: LiveGameScore
-        isSuspended: boolean
-        /** zero point for seconds in game, datetime */
-        secondsUpdated: Date
-        /** seconds left after zero point */
-        seconds: number
-    }
-    
-    export interface GameTime {
-        /** zero point for seconds in game, datetime */
-        secondsUpdated: Date
-        /** seconds left after zero point */
-        seconds: number
-        /** calculated string representation of in game time, string */
-        timeInGame: string
-    }
+        isSuspended: boolean        
+	timeInGame: string
+    }    
 
-    export interface LiveData {
-        secondsToShow: number
-        secondsToShowUpdateTime: Date
+    export interface LiveData {        
         scoreHome: number
         scoreAway: number
         isSuspended: boolean        
