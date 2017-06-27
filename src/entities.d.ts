@@ -17,9 +17,7 @@ export namespace entities {
         /** Type of Entity. */
         entityType: EntityType.Event
         /** Sport ID. */
-        sportId: number
-        /** Sorting order of Sport. */
-        sportOrder: number
+        sportId: number        
         /** Sport name (translated). */
         sportName: string
         /** Region ID. */
@@ -31,22 +29,16 @@ export namespace entities {
         /** League ID. */
         leagueId: number
         /** League name (translated). */
-        leagueName: string
-        /** Sorting order of League. */
-        leagueOrder: number
-        /** Is league in TOP for specific region. */
+        leagueName: string        
+        /** Is it marked as TOP league. */
         topLeague: boolean
-        /** Is league marked with hot flag for current region. */
+        /** desc should be added. */
         topLeagueInUserGeography: boolean
-        /** Name of home team for game event */
-        homeTeamName?: string
-        /** Name of away team for game event */
-        awayTeamName?: string
+        /** participants in the event. */
+        participants: Participant[]
         /** Name of event, for league events */
         eventName?: string
-
         markets: Market[]
-
         /** date/time of game start */
         startEventDate: Date
         /** is it live game */
@@ -55,8 +47,19 @@ export namespace entities {
         isGoingLive: boolean
         liveGameState?: LiveGameState        
         liveGameTime?: GameTime
-        tags: string[]
         meta: Dictionary<string>
+        tags: string[]        
+    }
+    
+    export interface Participant {
+	    id: string
+	    name: string
+	    venueRole?: string  // Home | Away
+	    country: string     // ISO code
+	    meta: Dictionary<string> // runnerNumber: number //  imageUrl: string // empty 
+					             // weight: string // empty
+						         // age: number    // -1
+						         // form: string   // empty
     }
     
     export interface Market {
@@ -70,10 +73,7 @@ export namespace entities {
         startDate: Date
         title?: string
         participantMapping?: number
-
-        selections: Selection[]
-        /** template number used for draw market */
-        splitType: number        
+        selections: Selection[]               
         isLive: boolean
         liveData: LiveData
         groupId: number
@@ -86,8 +86,7 @@ export namespace entities {
     
     export interface MarketType {
         id: string
-        name: string
-        drawCapable: boolean
+        name: string        
         swapTeams: boolean
     }
     
@@ -263,11 +262,9 @@ export namespace entities {
     export interface LiveData {
         secondsToShow: number
         secondsToShowUpdateTime: Date
-        scoreTeam1: number
-        scoreTeam2: number
-        isSuspended: boolean
-        aServePnppA: number
-        bServePnppB: number
+        scoreHome: number
+        scoreAway: number
+        isSuspended: boolean        
     }
 }
 
