@@ -44,7 +44,7 @@ export namespace entities {
         /** will this game go live when started, for pre-live only and eventType = Game */
         isGoingLive: boolean
         liveGameState?: LiveGameState                
-        meta: Dictionary<string>
+        meta: Dictionary<any>
         tags: string[]        
     }
     
@@ -53,7 +53,7 @@ export namespace entities {
 	name: string
 	venueRole?: string  // Home | Away
 	country: string     // ISO code
-	meta: Dictionary<string> // runnerNumber: number, imageUrl: string, weight: string, age: number, form: string
+	meta: Dictionary<any> // runnerNumber: number, imageUrl: string, weight: string, age: number, form: string
     }
     
     export interface Market {
@@ -73,9 +73,9 @@ export namespace entities {
         groupId: number
         groupName: string
         liveGroupId: number
-        preLiveGroupId: number        
-        tags: string[]
-        meta: Dictionary<string>
+        preLiveGroupId: number                
+        meta: Dictionary<any>
+	tags: string[]
     }
     
     export interface MarketType {
