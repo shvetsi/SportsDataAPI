@@ -52,14 +52,11 @@ export namespace entities {
     }
     
     export interface Participant {
-	    id: string
-	    name: string
-	    venueRole?: string  // Home | Away
-	    country: string     // ISO code
-	    meta: Dictionary<string> // runnerNumber: number //  imageUrl: string // empty 
-					             // weight: string // empty
-						         // age: number    // -1
-						         // form: string   // empty
+        id: string
+	name: string
+	venueRole?: string  // Home | Away
+	country: string     // ISO code
+	meta: Dictionary<string> // runnerNumber: number, imageUrl: string, weight: string, age: number, form: string
     }
     
     export interface Market {
