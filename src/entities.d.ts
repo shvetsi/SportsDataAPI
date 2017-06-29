@@ -33,7 +33,7 @@ export namespace entities {
         /** League name (translated). */
         leagueName: string        
         /** Is it marked as TOP league. */
-        topLeague: boolean        
+        isTopLeague: boolean        
         /** participants in the event. */
         participants: Participant[]        
         markets: Market[]
