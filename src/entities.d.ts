@@ -51,10 +51,12 @@ export namespace entities {
     export interface Participant {
         id: string
 	name: string
-	venueRole?: string  // Home | Away
+	venueRole?: VenueRole
 	country: string     // ISO code
 	metadata: Dictionary<any> // runnerNumber: number, imageUrl: string, weight: string, age: number, form: string
     }
+	
+    export type VenueRole = "Home" | "Away"
     
     export interface Market {
         id: string
@@ -129,7 +131,7 @@ export namespace entities {
         /** Sorting order */
         order: number
         /** Is league in TOP for specific region. */
-        topLeague: boolean        
+        istopLeague: boolean        
         /** number of live (in-game) active fixtures */
         liveFixturesCount: number
         /** total number of fixtures, both live and pre-live */
