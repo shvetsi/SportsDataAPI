@@ -19,17 +19,17 @@ export namespace entities {
 	/** Name of event, for league events */
         eventName?: string
         /** Sport ID. */
-        sportId: number        
+        sportId: string        
         /** Sport name (translated). */
         sportName: string
         /** Region ID. */
-        regionId: number
+        regionId: string
         /** ISO country code or (for regions in country) region code. */
         regionCode: string
         /** Region name (translated). */
         regionName: string
         /** League ID. */
-        leagueId: number
+        leagueId: string
         /** League name (translated). */
         leagueName: string        
         /** Is it marked as TOP league. */
@@ -63,8 +63,8 @@ export namespace entities {
         entityType: EntityType.Market
         marketType: MarketType
         eventId: string
-        sportId: number
-        leagueId: number
+        sportId: string
+        leagueId: string
         /** date/time of game start */
         startDate: Date
         title?: string
@@ -125,9 +125,9 @@ export namespace entities {
         /** translated league name */
         name: string
         /** link to sport */
-        sportId: number
+        sportId: string
         /** link to region */
-        regionId: number
+        regionId: string
         /** Sorting order */
         order: number
         /** Is league in TOP for specific region. */
