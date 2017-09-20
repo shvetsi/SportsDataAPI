@@ -128,6 +128,8 @@ export namespace entities {
         sportId: string
         /** link to region */
         regionId: string
+	/** ISO country code or (for regions in country) region code */
+        regionCode: string
         /** Sorting order */
         order: number
         /** Is league in TOP for specific region. */
