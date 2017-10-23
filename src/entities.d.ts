@@ -39,6 +39,10 @@ export namespace entities {
         markets: Market[]
         /** date/time of game start */
         startEventDate: Date
+        /**  Status of game */
+        status: GameStatus
+        /**  Score in game*/
+        score: GameScore
         /** is it live game */
         isLive: boolean
         /** will this game go live when started, for pre-live only and eventType = Game */
@@ -226,7 +230,7 @@ export namespace entities {
         PausedFourthPart = -14
     }
     
-    export interface LiveGameScore {
+    export interface GameScore {
         /** Home team/player top level score */
         homeScore: number
         /** Away team/player top level score */
@@ -236,9 +240,8 @@ export namespace entities {
     
     export interface LiveGameState {
         status: LiveStatus
-        score: LiveGameScore
         isSuspended: boolean        
-	timeInGame: string
+	    timeInGame: string
     }    
 
     export interface LiveData {        
@@ -250,4 +253,9 @@ export namespace entities {
 
 export interface Dictionary<T> {
     [index:string]: T
+}
+
+export enum GameStatus {
+    NotStarted = 0,
+    InProgress = 1
 }
