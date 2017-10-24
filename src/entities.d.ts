@@ -49,7 +49,9 @@ export namespace entities {
         isGoingLive: boolean
         liveGameState?: LiveGameState                
         metadata: Dictionary<any>
-        tags: string[]        
+        tags: string[] 
+        /** Is event suspended for some reason */
+        isSuspended: boolean       
     }
     
     export interface Participant {
@@ -239,9 +241,9 @@ export namespace entities {
     }
     
     export interface LiveGameState {
-        status: LiveStatus
-        isSuspended: boolean        
-	    timeInGame: string
+        clockRunning: boolean
+        gameTime: number
+        gamePart: number
     }    
 
     export interface LiveData {        
