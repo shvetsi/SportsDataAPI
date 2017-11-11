@@ -152,6 +152,8 @@ export namespace entities {
         displayOdds: Dictionary<string>
         trueOdds: number
         points: number
+        /* idsbtech: string */
+        metadata: Dictionary<any>
     }
     
     export enum SelectionSide {
