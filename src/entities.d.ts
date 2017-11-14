@@ -243,7 +243,7 @@ export namespace entities {
     export interface LiveGameState {
         clockRunning: boolean
         gameTime: number
-        gamePart: number
+        gamePart: string
     }    
 
     export interface LiveData {        
