@@ -1,4 +1,9 @@
 export namespace entities {
+    /**
+     * Represents datetime as a string formatted like '2017-08-02T05:40:01+01:00'
+     * (or '2017-08-02T05:40:01Z' for UTC timezone)
+     */  
+    export type ISODateTimeString = string
 
     export enum EntityType {
         Event = 0,
@@ -7,21 +12,22 @@ export namespace entities {
         Sport = 3,
         Region = 4
     }
-    
-    export type EventType = "Fixture" | "Outright"    
-    
-    export interface Event {
+
+    export type EventType = "Fixture" | "Outright"
+
+    /**
+     * Queryable entity
+     */
+    export interface SportEvent {
         id: string
         /** Type of SportEvent. */
         type: EventType
-        /** Type of Entity. */
-        entityType: EntityType.Event
-	/** Name of event, for league events */
-        eventName?: string
         /** Sport ID. */
-        sportId: string        
+        sportId: string
         /** Sport name (translated). */
         sportName: string
+        /** Sorting order of Sport. */
+        sportOrder: number
         /** Region ID. */
         regionId: string
         /** ISO country code or (for regions in country) region code. */
@@ -31,144 +37,232 @@ export namespace entities {
         /** League ID. */
         leagueId: string
         /** League name (translated). */
-        leagueName: string        
-        /** Is it marked as TOP league. */
-        isTopLeague: boolean        
+        leagueName: string
+        /** Sorting order of League. */
+        leagueOrder: number
+        /** Is league marked with top flag. */
+        isTopLeague: boolean
         /** participants in the event. */
-        participants: Participant[]        
+        participants: Participant[]  
+        /** Name of event, for league events */
+        eventName?: string
+        // not queriable
         markets: Market[]
+        // not queriable
+        totalMarketsCount: number
+        // not queriable
+        marketGroups: MarketGroup[]
         /** date/time of game start */
-        startEventDate: Date
-        /**  Status of game */
+        startEventDate: ISODateTimeString
+        /**  Status of game serving*/
         status: GameStatus
         /**  Score in game*/
-        score: GameScore
+        score: GameScore | null
         /** is it live game */
         isLive: boolean
         /** will this game go live when started, for pre-live only and eventType = Game */
         isGoingLive: boolean
-        liveGameState?: LiveGameState                
-        metadata: Dictionary<any>
-        tags: string[] 
+
+        liveGameState?: LiveGameState
+
         /** Is event suspended for some reason */
-        isSuspended: boolean       
+        isSuspended: boolean
+
+        tags: string[]
+
+        entityType: EntityType
+
+        metadata: Dictionary<any>
     }
-    
-    export interface Participant {
+
+    export interface MarketGroup{
         id: string
-	name: string
-	venueRole?: VenueRole
-	country: string     // ISO code
-	metadata: Dictionary<any> // runnerNumber: number, imageUrl: string, weight: string, age: number, form: string
+        name: string
     }
-	
+
     export type VenueRole = "Home" | "Away"
-    
+
+    export interface Participant{
+        id: string
+	    name: string
+        /** Home | Away */
+	    venueRole?: VenueRole
+        /** ISO code */
+	    country: string
+        /** runnerNumber: number, imageUrl: string, weight: string, age: number, form: string */
+	    metadata: Dictionary<any> 
+    }
+
+    /**
+     * Market
+     */
     export interface Market {
         id: string
-        entityType: EntityType.Market
+
         marketType: MarketType
-        eventId: string
+
         sportId: string
+
         leagueId: string
-        /** date/time of game start */
-        startDate: Date
+
+        startDate: ISODateTimeString
+
         title?: string
-        participantMapping?: number
-        selections: Selection[]               
+
+        participantMapping?: string
+
+        selections: Selection[]
+
+        eventId: string
+
+        entityType: EntityType
+
         isLive: boolean
+
+        isSuspended: boolean
+
         liveData: LiveData
-        groupId: number
-        groupName: string
-        liveGroupId: number
-        preLiveGroupId: number                
-        metadata: Dictionary<any>
-	tags: string[]
+
+        metadata: Dictionary<string>
+
+        tags: string[]
+
+        groups: string[]
     }
-    
+
     export interface MarketType {
         id: string
-        name: string        
+        name: string
         swapTeams: boolean
     }
-    
+
     export interface Sport {
         /** sport ID */
         id: string
-        entityType: EntityType.Sport
+
         /** sorting order */
         order: number
+
         /** translated sport name */
         name: string
-        /** number of live (in-game) active fixtures */
-        liveFixturesCount: number
-        /** total number of fixtures, both live and pre-live */
+
+        /** number of live (in-game) active games */
+        liveFixturesTotalCount: number
+
+        /** total number of games, both live and pre-live */
+        fixturesTotalCount: number
+
+        /** number of games, both live and pre-live filtered by time range */
         fixturesCount: number
+
         /** number of active outrights league bound markets */
-        outrightsCount: number        
+        outrightsTotalCount: number
+
+        entityType: EntityType
     }
-    
-    export interface Region {
-        /** region ID */
-        id: string
-        entityType: EntityType.Region
-        /** ISO country code or (for regions in country) region code */
-        code: string
-        /** translated region name */
-        name: string
-        /** number of live (in-game) active fixtures */
-        liveFixturesCount: number
-        /** total number of fixtures, both live and pre-live */
-        fixturesCount: number
-        /** number of active outrights league bound markets */
-        outrightsCount: number                
-    }
-    
+
     export interface League {
         /** league ID */
         id: string
-        entityType: EntityType.League
+
         /** translated league name */
         name: string
+
         /** link to sport */
         sportId: string
+
         /** link to region */
         regionId: string
-	/** ISO country code or (for regions in country) region code */
+
+        /** ISO country code or (for regions in country) region code */
         regionCode: string
+
         /** Sorting order */
-        order: number
-        /** Is league in TOP for specific region. */
-        istopLeague: boolean        
-        /** number of live (in-game) active fixtures */
-        liveFixturesCount: number
-        /** total number of fixtures, both live and pre-live */
+        defaultOrder: number
+
+        /** is league marked with hot flag */
+        isTopLeague: boolean
+
+        /** number of live (in-game) active games */
+        liveFixturesTotalCount: number
+
+        /** total number of games, both live and pre-live */
+        fixturesTotalCount: number
+
+        /** number of games, both live and pre-live filtered by time range*/
         fixturesCount: number
+
         /** number of active outrights league bound markets */
-        outrightsCount: number        
+        outrightsTotalCount: number
+        
+        entityType: EntityType
     }
-    
-    export interface Selection {
+
+     export interface Region {
+        /** region ID */
         id: string
-        side?: SelectionSide
-        type?: SelectionType
-        group: number
+
+        /** ISO country code or (for regions in country) region code */
+        code: string
+
+        /** translated region name */
         name: string
+
+        /** number of live (in-game) active games */
+        liveFixturesTotalCount: number
+
+        /** total number of games, both live and pre-live */
+        fixturesTotalCount: number
+
+        /** number of games, both live and pre-live filtered by time range*/
+        fixturesCount: number
+
+        /** number of active outrights league bound markets */
+        outrightsTotalCount: number
+        
+        entityType: EntityType
+    }
+
+    export interface Selection
+    {
+        id: string
+
+        side?: SelectionSide
+
+        type?: SelectionType
+
+        outcomeType? : OutcomeType
+
+        group: number
+
+        name: string
+
         title?: string
+        
+        participantMapping?: string
+
         displayOdds: Dictionary<string>
+
         trueOdds: number
+        
         points: number
+
+        /* Win or Place for outrights */
+        tags: string[]
+
         /* idsbtech: string */
         metadata: Dictionary<any>
     }
-    
-    export enum SelectionSide {
+
+    export enum SelectionSide
+    {
         Home = 1,
         Draw = 2,
         Away = 3
     }
-    
-    export enum SelectionType {
+
+    export enum SelectionType
+    {
         ML = 1,
         HC = 2,
         OU = 3,
@@ -176,90 +270,93 @@ export namespace entities {
         Column2 = 14,
         Column3 = 15
     }
-    
-    export enum LiveStatus {
-        NotStarted = 0,
-        FirstHalf = 1,
-        PausedFirstHalf = -1,
-        SecondHalf = 2,
-        PausedSecondHalf = -2,
-        EndFirstHalf = 3,
-        PauseBetweenHalfs = -3,
-        Finished = 6,
-        Overtime = 9,
-        FirstPart = 11,
-        SecondPart = 12,
-        ThirdPart = 13,
-        FourthPart = 14,
-        FifthPart = 15,
-        SixthPart = 16,
-        SeventhPart = 17,
-        EighthPart = 18,
-        NinthPart = 19,
-        TenthPart = 20,
-        EleventhPart = 21,
-        TwelfthPart = 22,
-        ThirteenthPart = 23,
-        FourteenthPart = 24,
-        FifteenthPart = 25,
-        SixteenthPart = 26,
-        SeventeenthPart = 27,
-        EighteenthPart = 28,
-        NineteenthPart = 29,
-        TwentiethPart = 30,
-        FirstBreak = 31,
-        SecondBreak = 32,
-        ThirdBreak = 33,
-        FourthBreak = 34,
-        FifthBreak = 35,
-        SixthBreak = 36,
-        SeventhBreak = 37,
-        EighthBreak = 38,
-        NinthBreak = 39,
-        TenthBreak = 40,
-        EleventhBreak = 41,
-        TwelfthBreak = 42,
-        ThirteenthBreak = 43,
-        FourteenthBreak = 44,
-        FifteenthBreak = 45,
-        SixteenthBreak = 46,
-        SeventeenthBreak = 47,
-        EighteenthBreak = 48,
-        NineteenthBreak = 49,
-        EndGame = 50,
-        Started = 51,
-        PausedFirstPart = -11,
-        PausedSecondPart = -12,
-        PausedThirdPart = -13,
-        PausedFourthPart = -14
+
+    export enum OutcomeType {
+        Home = "Home",
+        Tie = "Tie",
+        Draw = "Draw",
+        Away = "Away",
+        OneOrX = "1X",
+        XOrTwo = "X2",
+        OneTwo = "12",
+        Over = "Over",
+        Exactly = "Exactly",
+        Under = "Under",
+        Yes = "Yes",
+        No = "No",
+        Odd = "Odd",
+        Even = "Even",
+        ToScoreFirst = "ToScoreFirst",
+        ToScoreLast = "ToScoreLast",
+        ToScoreAnyTime = "ToScoreAnyTime",
+        ToScoreFirstOrLast = "ToScoreFirstOrLast",
+        ToScore2OrMore = "ToScore2OrMore",
+        ToScore3OrMore = "ToScore3OrMore"
     }
-    
+
+    export enum GamePart {
+        FirstOvertime = "FirstOvertime",
+        BreakAfterFirstOvertime = "BreakAfterFirstOvertime",
+        SecondOvertime = "SecondOvertime",
+        FirstSet = "FirstSet",
+        SecondSet = "SecondSet",
+        ThirdSet = "ThirdSet",
+        FourthSet = "FourthSet",
+        FifthSet = "FifthSet",
+        FirstPeriod = "FirstPeriod",
+        BreakAfterFirstPeriod = "BreakAfterFirstPeriod",
+        SecondPeriod = "SecondPeriod",
+        BreakAfterSecondPeriod = "BreakAfterSecondPeriod",
+        ThirdPeriod = "ThirdPeriod",
+        BreakAfterThirdPeriod = "BreakAfterThirdPeriod",
+        FirstQuarter = "FirstQuarter",
+        BreakAfterFirstQuarter = "BreakAfterFirstQuarter",
+        SecondQuarter = "SecondQuarter",
+        BreakAfterSecondQuarter = "BreakAfterSecondQuarter",
+        ThirdQuarter = "ThirdQuarter",
+        BreakAfterThirdQuarter = "BreakAfterThirdQuarter",
+        FourthQuarter = "FourthQuarter",
+        BreakAfterFourthQuarter = "BreakAfterFourthQuarter",
+        Overtime = "Overtime",
+        FirstHalf = "FirstHalf",
+        SecondHalf = "SecondHalf",
+        BreakAfterFirstHalf = "BreakAfterFirstHalf"
+    }
+
+    export enum GameStatus {
+        NotStarted = "NotStarted",
+        InProgress = "InProgress"
+    }
+
+    export enum ClockDirection {
+        Stopwatch = "Stopwatch",
+        Timer = "Timer"
+    }
+
     export interface GameScore {
         /** Home team/player top level score */
         homeScore: number
+
         /** Away team/player top level score */
         awayScore: number
-        additionalScores: Dictionary<string>
+
+        additionalScores: Dictionary<number>
     }
-    
+
     export interface LiveGameState {
         clockRunning: boolean
+        clockDirection: ClockDirection
         gameTime: number
-        gamePart: string
-    }    
+        gamePart: GamePart
+    }
 
-    export interface LiveData {        
+    export interface LiveData {
         scoreHome: number
         scoreAway: number
-        isSuspended: boolean        
     }
+
 }
 
 export interface Dictionary<T> {
-    [index:string]: T
-}
-
-export enum GameStatus {
-    NotStarted = 0,
-    InProgress = 1
+    [index:string]: T;
 }
