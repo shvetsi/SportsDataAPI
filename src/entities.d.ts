@@ -335,10 +335,10 @@ export namespace entities {
 
     export interface GameScore {
         /** Home team/player top level score */
-        homeScore: number
+        homeScore: string
 
         /** Away team/player top level score */
-        awayScore: number
+        awayScore: string
 
         additionalScores: Dictionary<number>
     }
@@ -351,8 +351,8 @@ export namespace entities {
     }
 
     export interface LiveData {
-        scoreHome: number
-        scoreAway: number
+        scoreHome: string
+        scoreAway: string
     }
 
 }
