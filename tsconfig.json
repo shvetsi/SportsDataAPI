@@ -1,0 +1,23 @@
+{
+    "compilerOptions": {
+        "noImplicitAny": true,        
+        "removeComments": false,
+        "sourceMap": true,
+        "target": "es5",
+        "module": "commonjs",
+        "moduleResolution": "node",
+        "outDir": "lib",
+        "rootDir": "src",
+        "declaration": true,
+        "strictNullChecks": true,
+        "lib": [
+            "es5",
+            "dom",
+            "scripthost",
+            "es2015.core"
+        ]
+    },
+    "files": [
+        "src/index.ts"
+    ]
+}

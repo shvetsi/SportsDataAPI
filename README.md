@@ -1,2 +1,1 @@
-# SportsDataAPI
-SBTech open sports data API
+## Sports Data API contracts
