@@ -55,7 +55,8 @@ export interface MarketChange {
     eventId: string,
     isSuspended: boolean,
     liveData: LiveData | null,
-    metadata: Dictionary<string>
+    metadata: Dictionary<string>,
+    marketType: MarketType
 }
 
 export interface LiveData {
