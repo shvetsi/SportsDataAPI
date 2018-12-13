@@ -36,6 +36,9 @@ export interface Selection {
 
 export interface SelectionChange {
     id: string,
+    name: string,
+    group: number,
+    outcomeType: OutcomeType | null,
     displayOdds: Dictionary<string>,
     trueOdds: number,
     isDisabled: boolean,
