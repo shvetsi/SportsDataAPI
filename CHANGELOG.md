@@ -1,4 +1,7 @@
 # Changelog
+## [2.3.0] - 
+### Added
+- Add event entity for compact projection
 ## [2.2.1] - 12/13/2018
 ### Added
 - Add marketType field for MarketChange entity
