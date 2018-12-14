@@ -54,6 +54,35 @@ export interface SportEvent {
     metadata: Dictionary<any>;
     media: MediaProvider[];
 }
+export interface SportEventCompact {
+    id: string;
+    type: EventType;
+    sportId: string;
+    sportName: string;
+    sportOrder: number;
+    regionId: string;
+    regionCode: string;
+    regionName: string;
+    leagueId: string;
+    leagueName: string;
+    leagueOrder: number;
+    isTopLeague: boolean;
+    eventName: string;
+    betslipLine: string;
+    totalMarketsCount: number;
+    marketLinesCount: number;
+    startEventDate: ISODateTimeString;
+    status: GameStatus;
+    score: GameScore | null;
+    isLive: boolean;
+    isGoingLive: boolean;
+    liveGameState: LiveGameState | null;
+    isSuspended: boolean;
+    isTeamSwap: boolean;
+    tags: string[];
+    entityType: EntityType;
+    media: MediaProvider[];
+}
 export interface SportEventChange {
     id: string;
     participants: Participant[];
