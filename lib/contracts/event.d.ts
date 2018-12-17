@@ -1,175 +1,147 @@
-import { EntityType, Dictionary, ISODateTimeString } from './common'
-
-export type EventType = "Fixture" | "Outright"
-
+import { EntityType, Dictionary, ISODateTimeString } from './common';
+export declare type EventType = "Fixture" | "Outright";
 /**
     * Queryable entity
     */
 export interface SportEvent {
-    id: string
+    id: string;
     /** Type of SportEvent. */
-    type: EventType
+    type: EventType;
     /** Sport ID. */
-    sportId: string
+    sportId: string;
     /** Sport name (translated). */
-    sportName: string
+    sportName: string;
     /** Sorting order of Sport. */
-    sportOrder: number
+    sportOrder: number;
     /** Region ID. */
-    regionId: string
+    regionId: string;
     /** ISO country code or (for regions in country) region code. */
-    regionCode: string
+    regionCode: string;
     /** Region name (translated). */
-    regionName: string
+    regionName: string;
     /** League ID. */
-    leagueId: string
+    leagueId: string;
     /** League name (translated). */
-    leagueName: string
+    leagueName: string;
     /** Sorting order of League. */
-    leagueOrder: number
+    leagueOrder: number;
     /** Is league marked with top flag. */
-    isTopLeague: boolean
+    isTopLeague: boolean;
     /** participants in the event. */
-    participants: Participant[]
+    participants: Participant[];
     /** Name of event, for league events */
-    eventName: string
-    // betslipLine
-    betslipLine: string
-    // not queriable
-    totalMarketsCount: number
-
-    marketLinesCount: number
-    // not queriable
-    marketGroups: MarketGroup[]
+    eventName: string;
+    betslipLine: string;
+    totalMarketsCount: number;
+    marketLinesCount: number;
+    marketGroups: MarketGroup[];
     /** date/time of game start */
-    startEventDate: ISODateTimeString
+    startEventDate: ISODateTimeString;
     /**  Status of game serving*/
-    status: GameStatus
+    status: GameStatus;
     /**  Score in game*/
-    score: GameScore | null
+    score: GameScore | null;
     /** is it live game */
-    isLive: boolean
+    isLive: boolean;
     /** will this game go live when started, for pre-live only and eventType = Game */
-    isGoingLive: boolean
-
-    liveGameState: LiveGameState | null
-
+    isGoingLive: boolean;
+    liveGameState: LiveGameState | null;
     /** Is event suspended for some reason */
-    isSuspended: boolean
-
-    isTeamSwap: boolean
-
-    tags: string[]
-
-    entityType: EntityType
-
-    metadata: Dictionary<any>
-
-    media: MediaProvider[]
+    isSuspended: boolean;
+    isTeamSwap: boolean;
+    tags: string[];
+    entityType: EntityType;
+    metadata: Dictionary<any>;
+    media: MediaProvider[];
 }
-
 export interface SportEventCompact {
-    id: string
-    type: EventType
-    sportId: string
-    sportName: string
-    sportOrder: number
-    regionId: string
-    regionCode: string
-    regionName: string
-    leagueId: string
-    leagueName: string
-    leagueOrder: number
-    isTopLeague: boolean
-    eventName: string
-    betslipLine: string
-    totalMarketsCount: number
-    marketLinesCount: number
-    startEventDate: ISODateTimeString
-    status: GameStatus
-    score: GameScore | null
-    isLive: boolean
-    isGoingLive: boolean
-    liveGameState: LiveGameState | null
-    isSuspended: boolean
-    isTeamSwap: boolean
-    tags: string[]
-    entityType: EntityType
-    media: MediaProvider[]
+    id: string;
+    type: EventType;
+    sportId: string;
+    sportName: string;
+    sportOrder: number;
+    regionId: string;
+    regionCode: string;
+    regionName: string;
+    leagueId: string;
+    leagueName: string;
+    leagueOrder: number;
+    isTopLeague: boolean;
+    eventName: string;
+    betslipLine: string;
+    totalMarketsCount: number;
+    marketLinesCount: number;
+    startEventDate: ISODateTimeString;
+    status: GameStatus;
+    score: GameScore | null;
+    isLive: boolean;
+    isGoingLive: boolean;
+    liveGameState: LiveGameState | null;
+    isSuspended: boolean;
+    isTeamSwap: boolean;
+    tags: string[];
+    entityType: EntityType;
+    media: MediaProvider[];
 }
-
 export interface SportEventChange {
-    id: string,
-    participants: Participant[],
-    totalMarketsCount: number,
-    marketLinesCount: number,
-    status: GameStatus,
-    score: GameScore | null,
-    isLive: boolean,
-    liveGameState: LiveGameState | null,
-    isSuspended: boolean,
-    metadata: Dictionary<any>
+    id: string;
+    participants: Participant[];
+    totalMarketsCount: number;
+    marketLinesCount: number;
+    status: GameStatus;
+    score: GameScore | null;
+    isLive: boolean;
+    liveGameState: LiveGameState | null;
+    isSuspended: boolean;
+    metadata: Dictionary<any>;
 }
-
 export interface MediaProvider {
-    providerName: string
-    providerEventId: string
-    mediaType: string
+    providerName: string;
+    providerEventId: string;
+    mediaType: string;
 }
-
 export interface MarketGroup {
-    id: string
-    name: string
-    order: number
+    id: string;
+    name: string;
+    order: number;
 }
-
-export type VenueRole = "Home" | "Away"
-
+export declare type VenueRole = "Home" | "Away";
 export interface Participant {
-    id: string
-    name: string
+    id: string;
+    name: string;
     /** Home | Away */
-    venueRole: VenueRole | null
+    venueRole: VenueRole | null;
     /** ISO code */
-    country: string | null
+    country: string | null;
     /** runnerNumber: number, imageUrl: string, weight: string, age: number, form: string */
-    metadata: Dictionary<any>
+    metadata: Dictionary<any>;
 }
-
 export interface ParticipantChange {
-    metadata: Dictionary<any>
+    metadata: Dictionary<any>;
 }
-
-export enum GameStatus {
+export declare enum GameStatus {
     NotStarted = "NotStarted",
     InProgress = "InProgress"
 }
-
-export enum ClockDirection {
+export declare enum ClockDirection {
     Stopwatch = "Stopwatch",
     Timer = "Timer"
 }
-
 export interface GameScore {
     /** Home team/player top level score */
-    homeScore: string
-
+    homeScore: string;
     /** Away team/player top level score */
-    awayScore: string
-
-    additionalScores: Dictionary<string>
-
-    combinedSecondTierScores: string[]
+    awayScore: string;
+    additionalScores: Dictionary<string>;
+    combinedSecondTierScores: string[];
 }
-
 export interface LiveGameState {
-    clockRunning: boolean
-    clockDirection: ClockDirection
-    gameTime: number | null
-    gamePart: GamePart | null
+    clockRunning: boolean;
+    clockDirection: ClockDirection;
+    gameTime: number | null;
+    gamePart: GamePart | null;
 }
-
-export enum GamePart {
+export declare enum GamePart {
     FirstOvertime = "FirstOvertime",
     BreakAfterFirstOvertime = "BreakAfterFirstOvertime",
     SecondOvertime = "SecondOvertime",
