@@ -32,6 +32,8 @@ export interface Selection {
     entityType: EntityType
 
     marketId: string
+	
+	status: SelectionStatus
 }
 
 export interface SelectionChange {
@@ -67,4 +69,10 @@ export enum OutcomeType {
     ToScoreFirstOrLast = "ToScoreFirstOrLast",
     ToScore2OrMore = "ToScore2OrMore",
     ToScore3OrMore = "ToScore3OrMore"
+}
+
+export enum SelectionStatus {
+    Active = "Active",
+    Disabled = "Disabled",
+    NonRunner = "NonRunner"
 }
