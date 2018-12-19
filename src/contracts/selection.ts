@@ -45,7 +45,8 @@ export interface SelectionChange {
     trueOdds: number,
     isDisabled: boolean,
     metadata: Dictionary<any>,
-    points: number | null
+    points: number | null,
+	status: SelectionStatus
 }
 
 export enum OutcomeType {

@@ -27,6 +27,7 @@ export interface SelectionChange {
     isDisabled: boolean;
     metadata: Dictionary<any>;
     points: number | null;
+    status: SelectionStatus;
 }
 export declare enum OutcomeType {
     Home = "Home",
