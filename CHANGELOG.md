@@ -2,6 +2,8 @@
 ## [2.3.0] - 
 ### Added
 - Add event entity for compact projection
+- Add SportEventId and EntityId entities for onlyID projection
+- Add Selection.status field
 ## [2.2.1] - 12/13/2018
 ### Added
 - Add marketType field for MarketChange entity

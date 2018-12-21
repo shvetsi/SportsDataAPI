@@ -45,7 +45,10 @@ export interface Market {
     castMarkets: string[] | null
 }
 
-
+export interface MarketId {
+    id: string,
+    eventId: string
+}
 
 export interface MarketChange {
     id: string,
