@@ -25,6 +25,10 @@ export interface Market {
     inMarketGroups: Group[];
     castMarkets: string[] | null;
 }
+export interface MarketId {
+    id: string;
+    eventId: string;
+}
 export interface MarketChange {
     id: string;
     name: string;
